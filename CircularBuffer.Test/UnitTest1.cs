@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace CircularBuffer.Test
@@ -8,6 +9,12 @@ namespace CircularBuffer.Test
         [Fact]
         public void CircularBufferCreatePass()
         {
+            Circularbuffer<int> test = new Circularbuffer<int>();
+
+
+            test.arrayCreate(5);
+
+            Assert.True(test.arrayGetSize() == 5);
 
         }
 
