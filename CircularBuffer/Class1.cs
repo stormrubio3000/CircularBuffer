@@ -8,7 +8,7 @@ namespace CircularBuffer
     {
         private int size;
         private int currentIndex = 0;
-        private int oldestIndex = 0;
+        private int? oldestIndex = null;
         private T[] array;
 
         public int arrayGetSize()
@@ -23,18 +23,23 @@ namespace CircularBuffer
 
         public void addOne(T value)
         {
-            if (currentIndex == size)
-            {
-                oldestIndex++;
-            }
-            if (oldestIndex != 0)
-            {
-                oldestIndex++;
-            }
-            if (oldestIndex > size)
+            if (oldestIndex == null)
             {
                 oldestIndex = 0;
             }
+            else
+            {
+                if (oldestIndex == currentIndex)
+                {
+                    oldestIndex++;
+                }
+                if (oldestIndex > size)
+                {
+                    oldestIndex = 0;
+                }
+            }
+          
+            
             if (currentIndex < size)
             {
                 array[currentIndex] = value;
@@ -44,7 +49,7 @@ namespace CircularBuffer
             {
                 currentIndex = 0;
                 array[currentIndex] = value;
-                currentIndex++;
+                
             }
             
         }
