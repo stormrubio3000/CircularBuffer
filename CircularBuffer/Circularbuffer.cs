@@ -6,18 +6,19 @@ namespace CircularBuffer
     
     public class Circularbuffer<T>
     {
-        private int size;
+        private int Size;
         private int currentIndex = 0;
         private int? oldestIndex = null;
         private T[] array;
 
         public int arrayGetSize()
         {
-            return size;
+            return Size;
         }
 
         public void arrayCreate(int size)
         {
+            Size = size;
             array = new T[size + 1];
         }
 
@@ -33,14 +34,14 @@ namespace CircularBuffer
                 {
                     oldestIndex++;
                 }
-                if (oldestIndex > size)
+                if (oldestIndex > Size)
                 {
                     oldestIndex = 0;
                 }
             }
           
             
-            if (currentIndex < size)
+            if (currentIndex < Size)
             {
                 array[currentIndex] = value;
                 currentIndex++;
@@ -56,7 +57,7 @@ namespace CircularBuffer
 
         public T returnArraySpecific(int value)
         {
-            if (value < size)
+            if (value < Size)
             {
                 return array[value];
             }
@@ -78,8 +79,16 @@ namespace CircularBuffer
 
         public void oldestRead()
         {
-            Console.Write(array[oldestIndex]);
-            Console.WriteLine();
+            if (oldestIndex == null)
+            {
+                Console.Write("No items in array");
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.Write(array[(int)oldestIndex]);
+                Console.WriteLine();
+            }
         }
 
  
