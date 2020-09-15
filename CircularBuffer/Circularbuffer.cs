@@ -23,7 +23,19 @@ namespace CircularBuffer
         }
 
         public void addOne(T value)
-        {
+        {   
+            if (currentIndex < Size)
+            {
+                array[currentIndex] = value;
+                currentIndex++;
+            }
+            else
+            {
+                currentIndex = 0;
+                array[currentIndex] = value;
+                
+            }
+            
             if (oldestIndex == null)
             {
                 oldestIndex = 0;
@@ -39,20 +51,6 @@ namespace CircularBuffer
                     oldestIndex = 0;
                 }
             }
-          
-            
-            if (currentIndex < Size)
-            {
-                array[currentIndex] = value;
-                currentIndex++;
-            }
-            else
-            {
-                currentIndex = 0;
-                array[currentIndex] = value;
-                
-            }
-            
         }
 
         public T returnArraySpecific(int value)
@@ -77,24 +75,20 @@ namespace CircularBuffer
             }
         }
 
-        public void oldestRead()
+        public T oldestRead()
         {
             if (oldestIndex == null)
             {
                 Console.Write("No items in array");
                 Console.WriteLine();
+                return default(T);
             }
             else
             {
                 Console.Write(array[(int)oldestIndex]);
                 Console.WriteLine();
+                return array[(int)oldestIndex];
             }
         }
-
- 
-        
-        
     }
-
-
 }

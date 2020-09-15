@@ -28,60 +28,119 @@ namespace CircularBuffer.Test
             try
             {
                 test.arrayCreate(Try);
+                Assert.True(false);
             }
             catch(Exception exc)
             {
-                Assert.True(true);
             }
-
         }
 
         [Fact]
         public void CircularBufferAddPass()
         {
-            Assert.False(true);
+            Circularbuffer<int> test = new Circularbuffer<int>();
+            test.arrayCreate(5);
+            test.addOne(1);
+            Assert.Equal(1, test.returnArraySpecific(0));
         }
 
         [Fact]
         public void CircularBufferAddFail()
         {
-            Assert.False(true);
+            Circularbuffer<int> test = new Circularbuffer<int>();
+
+            try {
+                test.arrayCreate(0);
+                test.addOne(1);
+                Assert.True(false);
+            } catch (Exception exc) {
+            }
         }
 
         [Fact]
         public void CircularBufferOverwritePass()
         {
-            Assert.False(true);
-        }
+            Circularbuffer<int> test = new Circularbuffer<int>();
+            
+            test.arrayCreate(1);
+            test.addOne(1);
+            test.addOne(2);
 
-        [Fact]
-        public void CircularBufferOverwriteFail()
-        {
-            Assert.False(true);
+            Assert.Equal(2, test.returnArraySpecific(0));
         }
 
         [Fact]
         public void CircularBufferReadNextPass()
         {
-            Assert.False(true);
+            Circularbuffer<string> test = new Circularbuffer<string>();
+            
+            test.arrayCreate(3);
+            test.addOne("something");
+            test.addOne("else");
+            test.addOne("another");
+
+            test.forEachRead();
+
+            Assert.True(true);
         }
 
         [Fact]
         public void CircularBufferReadNextFail()
         {
-            Assert.False(true);
+            Circularbuffer<string> test = new Circularbuffer<string>();
+            
+            test.arrayCreate(4);
+            test.addOne("more");
+            test.addOne("test");
+            test.addOne("words");
+
+            test.forEachRead();
         }
 
         [Fact]
         public void CircularBufferReadOldestPass()
         {
-            Assert.False(true);
+            Circularbuffer<int> test = new Circularbuffer<int>();
+            
+            test.arrayCreate(3);
+            test.addOne(1);
+            test.addOne(2);
+            test.addOne(3);
+            test.addOne(4);
+
+            Assert.Equal(2, test.oldestRead());
         }
 
         [Fact]
         public void CircularBufferReadOldestFail()
         {
-            Assert.False(true);
+            Circularbuffer<int> test = new Circularbuffer<int>();
+            
+            test.arrayCreate(1);
+
+            Assert.Equal(0, test.oldestRead());
+        }
+
+        [Fact]
+        public void CircularBufferReturnArraySpecificPass() {
+            Circularbuffer<int> test = new Circularbuffer<int>();
+            
+            test.arrayCreate(1);
+            test.addOne(1);
+
+            Assert.Equal(1, test.returnArraySpecific(0));
+        }
+        
+        [Fact]
+        public void CircularBufferReturnArraySpecificFail() {
+            Circularbuffer<int> test = new Circularbuffer<int>();
+            
+            test.arrayCreate(1);
+            try {
+                test.returnArraySpecific(20);
+                Assert.True(false);
+            } catch (IndexOutOfRangeException exc) {
+            }
         }
     }
 }
